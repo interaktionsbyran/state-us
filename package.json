@@ -1,0 +1,31 @@
+{
+  "name": "state-us",
+  "version": "1.0.0",
+  "description": "A simple state machine with replacable context",
+  "main": "state-us.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha tests/*.js --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/interaktionsbyran/state-us"
+  },
+  "keywords": [
+    "state",
+    "machine",
+    "statemachine"
+  ],
+  "author": "Rostislav Raykov <rostislav@interaktionsbyran.se>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/interaktionsbyran/state-us/issues"
+  },
+  "homepage": "https://github.com/interaktionsbyran/state-us",
+  "dependencies": {
+    "lodash": "^3.8.0"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.4"
+  }
+}
