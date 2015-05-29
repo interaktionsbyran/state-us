@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-var Murica = function(states, initialState, context) {
+var Stateus = function(states, initialState, context) {
 	if (_.isEmpty(states)) {
 		throw new Error('No states defined');
 	}
@@ -23,12 +23,12 @@ var Murica = function(states, initialState, context) {
 	this.createStateMethods(initialState);
 };
 
-Murica.prototype.context             = null;
-Murica.prototype.currentState        = '';
-Murica.prototype.states              = {};
-Murica.prototype.transitionCallbacks = [];
+Stateus.prototype.context             = null;
+Stateus.prototype.currentState        = '';
+Stateus.prototype.states              = {};
+Stateus.prototype.transitionCallbacks = [];
 
-Murica.prototype.setupInvalidTransitions = function() {
+Stateus.prototype.setupInvalidTransitions = function() {
 	var self = this;
 	_.each(this.states, function(state) {
 		_.each(state, function(stateName, transitionName){
@@ -39,7 +39,7 @@ Murica.prototype.setupInvalidTransitions = function() {
 	});
 };
 
-Murica.prototype.switchState = function(newState) {
+Stateus.prototype.switchState = function(newState) {
 	if (typeof this.states[newState] === 'undefined') {
 		throw new Error('No such state ("' + newState + '")');
 	}
@@ -57,7 +57,7 @@ Murica.prototype.switchState = function(newState) {
 	return this;
 };
 
-Murica.prototype.runTransitionCallbacks = function(oldState, newState, actualStates) {
+Stateus.prototype.runTransitionCallbacks = function(oldState, newState, actualStates) {
 	if (typeof this.transitionCallbacks[oldState] === 'undefined' || typeof this.transitionCallbacks[oldState][newState] === 'undefined') {
 		return false;
 	}
@@ -68,7 +68,7 @@ Murica.prototype.runTransitionCallbacks = function(oldState, newState, actualSta
 	});
 };
 
-Murica.prototype.setState = function (newState) {
+Stateus.prototype.setState = function (newState) {
 	if (typeof this.states[newState] === 'undefined') {
 		throw new Error('No such state ("' + newState + '")');
 	}
@@ -78,7 +78,7 @@ Murica.prototype.setState = function (newState) {
 	return this;
 };
 
-Murica.prototype.createStateMethods = function(newState) {
+Stateus.prototype.createStateMethods = function(newState) {
 	var self = this;
 
 	if (typeof this.states[newState] === 'undefined') {
@@ -86,7 +86,7 @@ Murica.prototype.createStateMethods = function(newState) {
 	}
 
 	_.each(this.states[newState], function(returnValue, transitionName) {
-		if (typeof Murica.prototype[transitionName] !== 'undefined') {
+		if (typeof Stateus.prototype[transitionName] !== 'undefined') {
 			throw new Error('Reserved name. Cannot use "' + transitionName + '" for a transition name.');
 		}
 
@@ -103,7 +103,7 @@ Murica.prototype.createStateMethods = function(newState) {
 	});
 };
 
-Murica.prototype.onTransition = function(oldState, newState, callback) {
+Stateus.prototype.onTransition = function(oldState, newState, callback) {
 	var self = this;
 	if (typeof oldState !== 'string') {
 		_.each(oldState, function(eachOldState){
@@ -128,20 +128,20 @@ Murica.prototype.onTransition = function(oldState, newState, callback) {
 	});
 };
 
-Murica.prototype.bind = function(callback) {
+Stateus.prototype.bind = function(callback) {
 	this.onTransition('*', '*', callback);
 };
 
-Murica.prototype.onTransitionTo = function(newState, callback) {
+Stateus.prototype.onTransitionTo = function(newState, callback) {
 	this.onTransition('*', newState, callback);
 };
 
-Murica.prototype.onTransitionFrom = function(oldState, callback) {
+Stateus.prototype.onTransitionFrom = function(oldState, callback) {
 	this.onTransition(oldState, '*', callback);
 };
 
-Murica.prototype.onTransitionFromTo = function(oldState, newState, callback) {
+Stateus.prototype.onTransitionFromTo = function(oldState, newState, callback) {
 	this.onTransition(oldState, newState, callback);
 };
 
-module.exports = Murica;
+module.exports = Stateus;

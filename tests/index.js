@@ -1,10 +1,10 @@
 'use strict';
 
-var should = require('chai').should();
-var expect = require('chai').expect;
-var assert = require('chai').assert;
-var _      = require('lodash');
-var Murica = require('../state-us.js');
+var should  = require('chai').should();
+var expect  = require('chai').expect;
+var assert  = require('chai').assert;
+var _       = require('lodash');
+var Stateus = require('../stateus.js');
 
 var transitionFunction = function() {
 	return 'four';
@@ -33,20 +33,20 @@ var exampleStates = {
 describe('state machine initialization', function () {
 	it('should give an error on no states defined', function () {
 		var constructor = function() {
-			return new Murica({}, 'one');
+			return new Stateus({}, 'one');
 		};
 		expect(constructor).to.throw(Error);
 	});
 
 	it('should give an error on no initial state defined', function () {
 		var constructor = function() {
-			return new Murica(exampleStates);
+			return new Stateus(exampleStates);
 		};
 		expect(constructor).to.throw(Error);
 	});
 
 	it('should save the states names list', function () {
-		var machine = new Murica(exampleStates, 'one');
+		var machine = new Stateus(exampleStates, 'one');
 		var stateNames = _.keys(exampleStates);
 		expect(machine.states).to.have.all.keys(stateNames);
 	});
@@ -56,7 +56,7 @@ describe('state machine transitions and bindings', function () {
 	var machine;
 
 	beforeEach(function(){
-		machine = new Murica(exampleStates, 'two');
+		machine = new Stateus(exampleStates, 'two');
 	});
 
 	describe('state switching', function () {

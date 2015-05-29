@@ -1,8 +1,8 @@
 {
-  "name": "state-us",
+  "name": "stateus",
   "version": "1.0.0",
   "description": "A simple state machine with replacable context",
-  "main": "state-us.js",
+  "main": "stateus.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha tests/*.js --reporter spec"
   },

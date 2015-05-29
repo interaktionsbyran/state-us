@@ -1,10 +1,10 @@
-# Murica - the simple state machine library
+# Stateus - the simple state machine library
 
-To install Murica just type `npm install murica` and then use just like any other npm module:
+To install Stateus just type `npm install stateus` and then use just like any other npm module:
 
 ```javascript
-var Murica       = require('Murica');
-var stateMachine = new Murica(states, startState, context);
+var Stateus       = require('Stateus');
+var stateMachine = new Stateus(states, startState, context);
 ```
 
 The states object looks like this:
