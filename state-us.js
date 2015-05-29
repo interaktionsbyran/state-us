@@ -19,16 +19,6 @@ var Murica = function(states, initialState, context) {
 	this.context             = context;
 	this.currentState        = initialState;
 	this.transitionCallbacks = [];
-
-	var self = this;
-	_.each(this.states, function(state) {
-		_.each(state, function(returnValue, transitionName){
-			self[transitionName] = function() {
-				console.log('No such transition for this state.');
-			};
-		});
-	});
-
 	this.setupInvalidTransitions();
 	this.createStateMethods(initialState);
 };
@@ -41,9 +31,9 @@ Murica.prototype.transitionCallbacks = [];
 Murica.prototype.setupInvalidTransitions = function() {
 	var self = this;
 	_.each(this.states, function(state) {
-		_.each(state, function(returnValue, transitionName){
+		_.each(state, function(stateName, transitionName){
 			self[transitionName] = function() {
-				console.log('No such transition for this state.');
+				console.log('No such transition ("' + transitionName + '") for this state ("' + stateName + '").');
 			};
 		});
 	});
@@ -51,7 +41,7 @@ Murica.prototype.setupInvalidTransitions = function() {
 
 Murica.prototype.switchState = function(newState) {
 	if (typeof this.states[newState] === 'undefined') {
-		throw new Error('No such state');
+		throw new Error('No such state ("' + newState + '")');
 	}
 
 	this.setupInvalidTransitions();
@@ -80,7 +70,7 @@ Murica.prototype.runTransitionCallbacks = function(oldState, newState, actualSta
 
 Murica.prototype.setState = function (newState) {
 	if (typeof this.states[newState] === 'undefined') {
-		throw new Error('No such state');
+		throw new Error('No such state ("' + newState + '")');
 	}
 
 	this.currentState = newState;
@@ -97,7 +87,7 @@ Murica.prototype.createStateMethods = function(newState) {
 
 	_.each(this.states[newState], function(returnValue, transitionName) {
 		if (typeof Murica.prototype[transitionName] !== 'undefined') {
-			throw new Error('Reserved name. Cannot use ' + transitionName + ' for transition.');
+			throw new Error('Reserved name. Cannot use "' + transitionName + '" for a transition name.');
 		}
 
 		self[transitionName] = function() {
