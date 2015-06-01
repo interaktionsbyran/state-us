@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/interaktionsbyran/state-us"
+    "url": "git://github.com/interaktionsbyran/stateus"
   },
   "keywords": [
     "state",
@@ -18,9 +18,9 @@
   "author": "Rostislav Raykov <rostislav@interaktionsbyran.se>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/interaktionsbyran/state-us/issues"
+    "url": "https://github.com/interaktionsbyran/stateus/issues"
   },
-  "homepage": "https://github.com/interaktionsbyran/state-us",
+  "homepage": "https://github.com/interaktionsbyran/stateus",
   "dependencies": {
     "lodash": "^3.8.0"
   },
