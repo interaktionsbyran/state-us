@@ -4,7 +4,7 @@ To install Stateus just type `npm install stateus` and then use just like any ot
 
 ```javascript
 var Stateus       = require('Stateus');
-var stateMachine = new Stateus(states, startState, context);
+var stateMachine  = new Stateus(states, startState, context);
 ```
 
 The states object looks like this:
