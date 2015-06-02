@@ -16,7 +16,12 @@ The states object looks like this:
       // do something (but return a string with
       // the name of the new state)
       // you can use the context specified on initialization
-      // as the local context (using the this keyword)
+      // as the local context (using the this keyword) e.g.
+      if (stateMachine.currentState === 'off') {
+        return 'on';
+      } else {
+        return 'off';
+      }
     },
     turnOff: 'off'
   },
@@ -39,7 +44,7 @@ state from that transition. If it's a closure inside the closure you can do addi
 the resulting state. Inside that closure you can use `this` which will actually be the context you specified on initialization time (the last argument in the init). The default starting state is a string specifying the initial state of the state machine.
 
 You can also bind callbacks on state changes.
-To bind a callback on any state change use the bind method like this:
+To bind a callback on any state change use the onTransition method like this:
 ```javascript
 stateMachine.onTransition(function(oldState, newState){
   [...]
@@ -89,9 +94,17 @@ stateMachine.onTransitionFromTo(['oldStateName', 'another'], ['newStateName', 'a
 
 The order of the bindings' execution depends on the order of your definitions. The different types of bindings are executed in the following order:
 
- 1. all global bindings (using `bind`)
+ 1. all global bindings (using `onTransition`)
  2. all from specific to specific (using `onTransitionFromTo`)
  3. from specific to any (using `onTransitionFrom`)
  4. from any to a specific (using `onTransitionTo`)
 
 And again as in other cases of the state machine, in the bindings the `this` keyword is still pointing to the desired context when initializing the state machine.
+
+Here are some other things you can use:
+```javascript
+stateMachine.currentState // the current state
+stateMachine.switchState(newStateName); // switch the state directly but still calling the transitions from/to - not recommended
+stateMachine.setState(newStateName); // sets the state directly without calling any transitions - highly not recommended!!! :/
+```
+
