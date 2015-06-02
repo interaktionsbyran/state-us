@@ -103,11 +103,11 @@ Stateus.prototype.createStateMethods = function(newState) {
 	});
 };
 
-Stateus.prototype.onTransition = function(oldState, newState, callback) {
+Stateus.prototype._onTransition = function(oldState, newState, callback) {
 	var self = this;
 	if (typeof oldState !== 'string') {
 		_.each(oldState, function(eachOldState){
-			self.onTransition(eachOldState, newState, callback);
+			self._onTransition(eachOldState, newState, callback);
 		});
 		return;
 	}
@@ -128,20 +128,20 @@ Stateus.prototype.onTransition = function(oldState, newState, callback) {
 	});
 };
 
-Stateus.prototype.bind = function(callback) {
-	this.onTransition('*', '*', callback);
+Stateus.prototype.onTransition = function(callback) {
+	this._onTransition('*', '*', callback);
 };
 
 Stateus.prototype.onTransitionTo = function(newState, callback) {
-	this.onTransition('*', newState, callback);
+	this._onTransition('*', newState, callback);
 };
 
 Stateus.prototype.onTransitionFrom = function(oldState, callback) {
-	this.onTransition(oldState, '*', callback);
+	this._onTransition(oldState, '*', callback);
 };
 
 Stateus.prototype.onTransitionFromTo = function(oldState, newState, callback) {
-	this.onTransition(oldState, newState, callback);
+	this._onTransition(oldState, newState, callback);
 };
 
 module.exports = Stateus;

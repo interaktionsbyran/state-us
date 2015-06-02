@@ -85,10 +85,10 @@ describe('state machine transitions and bindings', function () {
 		it('should call all global transition bindings', function () {
 			var global = 0;
 			var secondGlobal = 0;
-			machine.bind(function(oldState, newState) {
+			machine.onTransition(function(oldState, newState) {
 				global += 1;
 			});
-			machine.bind(function(oldState, newState) {
+			machine.onTransition(function(oldState, newState) {
 				secondGlobal += 1;
 			});
 			machine.increment();

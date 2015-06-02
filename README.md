@@ -41,7 +41,7 @@ the resulting state. Inside that closure you can use `this` which will actually 
 You can also bind callbacks on state changes.
 To bind a callback on any state change use the bind method like this:
 ```javascript
-stateMachine.bind(function(oldState, newState){
+stateMachine.onTransition(function(oldState, newState){
   [...]
 });
 ```
